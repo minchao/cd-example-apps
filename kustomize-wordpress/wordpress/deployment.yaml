@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        # ref https://hub.docker.com/_/wordpress
+        - image: wordpress:5.7-apache
+          name: wordpress
+          ports:
+            - containerPort: 80
+              name: wordpress
+          volumeMounts:
+            - name: wordpress-persistent-storage
+              mountPath: /var/www/html
+            - name: wordpress-content-persistent-storage
+              mountPath: /var/www/html/wp-content
+      volumes:
+        - name: wordpress-persistent-storage
+          emptyDir: {}
+        - name: wordpress-content-persistent-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc

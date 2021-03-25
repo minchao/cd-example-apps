@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  replicas: 2
+  template:
+    spec:
+      initContainers:
+        - name: init-command
+          image: debian
+          command: [ "/bin/sh" ]
+          args: [ "-c", "echo $(WORDPRESS_SERVICE); echo $(MYSQL_SERVICE)" ]
+      containers:
+        - name: wordpress
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: $(MYSQL_SERVICE)
+            - name: WORDPRESS_DB_USER
+              value: root
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+            - name: WORDPRESS_DEBUG
+              value: "1"
+            - name: WORDPRESS_AUTH_KEY
+              value: "b9eaeecee95517b4c90c676678d2934c3237cf95"
+            - name: WORDPRESS_SECURE_AUTH_KEY
+              value: "9250cd264f82d849c62f5b2153835e4487a1cc20"
+            - name: WORDPRESS_LOGGED_IN_KEY
+              value: "56e81b94eb6636fd0dbe95c672aecaa8b629ac1d"
+            - name: WORDPRESS_NONCE_KEY
+              value: "4b1086c8682aadd982fdebdc1e1f5fe158b88649"
+            - name: WORDPRESS_AUTH_SALT
+              value: "ee51ea7c4e18671da19eeab3239617d4bef5b5ce"
+            - name: WORDPRESS_SECURE_AUTH_SALT
+              value: "8b89ea19d7be55499c11c9f77c3b83055a48a9a8"
+            - name: WORDPRESS_LOGGED_IN_SALT
+              value: "1a1c157d342d0c5647a5e298179b77d13515412a"
+            - name: WORDPRESS_NONCE_SALT
+              value: "25ccc76ed50a1163d005acc22c6a37c20e5145bd"
