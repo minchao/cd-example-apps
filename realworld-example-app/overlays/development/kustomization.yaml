@@ -1,0 +1,26 @@
+namePrefix: development-
+commonLabels:
+  variant: development
+resources:
+  - ../../base
+  - secret.yaml
+patchesStrategicMerge:
+  - patch.yaml
+patchesJson6902:
+  - target:
+      kind: Ingress
+      name: realworld-backend-ingress
+      version: v1
+    path: patch_ingress.yaml
+  - target:
+      kind: Ingress
+      name: realworld-frontend-ingress
+      version: v1
+    path: patch_ingress.yaml
+
+vars:
+  - name: MYSQL_SERVICE
+    objref:
+      kind: Service
+      name: mysql
+      apiVersion: v1
