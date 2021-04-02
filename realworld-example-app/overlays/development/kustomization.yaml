@@ -3,6 +3,7 @@ commonLabels:
   variant: development
 resources:
   - ../../base
+  - job.yaml
   - secret.yaml
 patchesStrategicMerge:
   - patch.yaml
