@@ -1,3 +1,6 @@
 - op: replace
   path: /spec/rules/0/host
   value: dev.realworld.local
+- op: replace
+  path: /spec/rules/1/host
+  value: preview.dev.realworld.local
