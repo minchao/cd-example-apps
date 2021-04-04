@@ -8,6 +8,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: argo-cd
-    repoURL: https://github.com/minchao/cd-example-apps/argo-gitops
+    path: argo-gitops/argo-cd
+    repoURL: https://github.com/minchao/cd-example-apps
     targetRevision: temp
