@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: dev.realworld.local
+# workaround for kustomize v3.6.1
+- op: replace
+  path: /spec/rules/0/http/paths/0/backend/service/name
+  value: development-frontend

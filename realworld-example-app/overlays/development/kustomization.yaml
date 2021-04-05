@@ -9,15 +9,17 @@ patchesStrategicMerge:
   - patch.yaml
 patchesJson6902:
   - target:
+      group: networking.k8s.io
       kind: Ingress
       name: realworld-backend-ingress
       version: v1
-    path: patch_ingress.yaml
+    path: patch_backend_ingress.yaml
   - target:
+      group: networking.k8s.io
       kind: Ingress
       name: realworld-frontend-ingress
       version: v1
-    path: patch_ingress.yaml
+    path: patch_frontend_ingress.yaml
 
 vars:
   - name: MYSQL_SERVICE
